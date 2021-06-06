@@ -233,7 +233,7 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'root',
-            'password' => 'kochatalk@Aa123',
+            'password' => 'linkup@Aa123',
             'database' => 'kochatalk_db',
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',

@@ -5,7 +5,7 @@
     "USERNAME": "",
     "PASSWORD": "",
     "PORT": 27017,
-    "DBNAME": "balloon_chat_db"
+    "DBNAME": "kochatalk_chat_db"
   },
   "APP": {
     "SALT_KEY": "PCM-BLC-2018",
