@@ -1,0 +1,30 @@
+* {
+  outline: none;
+}
+
+.chatbox{
+  height: 500px;
+  overflow-y: auto
+}
+
+.message-group{
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.message-group p{
+  font-size: 12px;
+}
+
+.message-group h5{
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+.message-group.by-me{
+  text-align: right
+}
+
+#list-events{
+  height: 555px;
+  overflow-y: auto
+}

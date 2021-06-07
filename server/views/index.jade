@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  div.container
+    h1.text-center= title
+    div.row
+      div.col-md-3
+        div.panel.panel-info
+          div.panel-heading
+            h3.panel-title TEST ID
+          div.panel-body
+            div.form-group
+              input.form-control(id="txtID", type='text')
+            div.form-group
+              button.btn.btn-default(type='button', id='btnJoinRoom') Join
+              button.btn.btn-default(type='button', id='btnLeaveRoom') Leave
+              button.btn.btn-default.btn-block(type='button', id='btnJoinContact') Join:Contact
+        div.panel.panel-danger
+          div.panel-heading
+            h3.panel-title Users Online
+          div.panel-body
+            div#list-users-online.list-group
+      div.col-md-6
+        div.panel.panel-primary
+            div.panel-heading 
+              h3.panel-title Chatbox
+            div.panel-body.chatbox
+              template#message
+                div.message-group.by-me
+                  h5 #_USER 
+                    small at _CREATED
+                  p _MESSAGE
+            div.panel-footer  
+              .input-group
+                input.form-control(id="txtMessage", type='text', placeholder='Type a message ...')
+                span.input-group-btn
+                  button.btn.btn-default(type='button')
+                    span.glyphicon.glyphicon-send
+                  button.btn.btn-default(id="btnSendContact", type='button') send:contact
+      div.col-md-3
+        div.panel.panel-success
+            div.panel-heading 
+              h3.panel-title Events
+            div#list-events.panel-body
+              p
+                strong Default Events
+              p Emit:
+              ul
+                li join:room
+                li send:message
+              p On:
+              ul
+                li receive:message
+                li update:users
+              p
+                strong Live Events
+
+
+  

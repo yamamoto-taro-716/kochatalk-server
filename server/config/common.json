@@ -1,0 +1,18 @@
+{
+    "DB": {
+        "DRIVER": "mongodb",
+        "HOST": "localhost",
+        "USERNAME": "",
+        "PASSWORD": "",
+        "PORT": 27017,
+        "DBNAME": "balloon_chat_db"
+    },
+    "APP": {
+        "SALT_KEY": "PCM-BLC-2018",
+        "FCM_API_KEY": "AAAA6Q9iKbk:APA91bGNGZcQJn-MLJaHVkFni0Q0E2NMMdSJAUAmKap4cNOdNcx40Z5UXiUtGqeRYQJJ8ynhWbnfgUHuCFPvCRI9D6x91sVfK4WlLKGllHQEkNZYZ1bfs7IBSlmkZCzqYxHZbNV-8__i"
+    },
+    "CONST": {
+        "MSG_TYPE_TEXT": 1,
+        "MSG_TYPE_IMAGE": 2
+    }
+}
