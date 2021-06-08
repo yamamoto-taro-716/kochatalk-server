@@ -12,7 +12,7 @@ var contactModel = require('./models_balloon/contacts');
 var contactMessageModel = require('./models_balloon/contact_messages');
 /* END - MODEL */
 
-var socket_chat_ns = '/chat-balloon';
+var socket_chat_ns = '/chat-kochatalk';
 
 function getSocketsInRoom(io, room, namespace = '/') {
     let _room = io.nsps[namespace].adapter.rooms[room];

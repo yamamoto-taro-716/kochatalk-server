@@ -118,7 +118,7 @@ $this->assign("title", __("問い合わせ"));
     $(function () {
         loadData(BASE_URL_HISTORY, 'bottom');
 
-        var chatio = io('<?= \Cake\Core\Configure::read("App.socketBaseUrl") ?>/chat-balloon');
+        var chatio = io('<?= \Cake\Core\Configure::read("App.socketBaseUrl") ?>/chat-kochatalk');
         var token = "<?= $jwt_token ?>";
         chatio.emit('authenticate', {
             token: token

@@ -47,7 +47,7 @@ return [
         // 'baseUrl' => env('SCRIPT_NAME'),
         'subDomain' => 'kochatalk',
         'fullBaseUrl' => false,
-        'socketBaseUrl' => 'http://52.69.103.221:3000/chat-balloon',
+        'socketBaseUrl' => 'http://52.69.103.221:3000/chat-kochatalk',
         'imageBaseUrl' => 'img/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',
