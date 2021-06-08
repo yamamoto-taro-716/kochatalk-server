@@ -3,14 +3,14 @@ var APP_CONFIG = require('./config/common.json');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+//var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var FCM = require('fcm-node');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var logger = require('./winston');
 var app = express();
 
 // view engine setup
@@ -19,7 +19,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -67,6 +67,39 @@ app.pushAndroid = function (deviceToken, message, profile) {
 
   fcm.send(message, function (err, response) {
   });
+}
+
+var APP_BALLOON_CONFIG = require('./config/balloon.json');
+app.pushFCM = function (deviceToken, message, profile, env) {
+    env = env || 'android'
+    var serverKey = APP_CONFIG.APP.FCM_API_KEY;
+
+    if(env == 'ios'){
+        serverKey = APP_BALLOON_CONFIG.APP.FCM_API_KEY_IOS;
+    }else if(env == 'android'){
+        serverKey = APP_BALLOON_CONFIG.APP.FCM_API_KEY_ANDROID;
+    }
+
+    var fcm = new FCM(serverKey);
+    var message = {
+        to: deviceToken,
+        data: {
+            sound :"default",
+            body: message.content,
+            created: message.created,
+            title: profile.nickname,
+            account_id: profile.id,
+            nationality: profile.nationality,
+            gender: profile.gender,
+            avatar: profile.avatar,
+            revision: profile.revision,
+            type: "chat"
+        }
+    };
+
+    fcm.send(message, function (err, response) {
+        logger.error(err);
+    });
 }
 
 module.exports = app;

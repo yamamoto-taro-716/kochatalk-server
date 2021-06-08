@@ -8,8 +8,8 @@
         "DBNAME": "kochatalk_chat_db"
     },
     "APP": {
-        "SALT_KEY": "PCM-BLC-2018",
-        "FCM_API_KEY": "AAAA6Q9iKbk:APA91bGNGZcQJn-MLJaHVkFni0Q0E2NMMdSJAUAmKap4cNOdNcx40Z5UXiUtGqeRYQJJ8ynhWbnfgUHuCFPvCRI9D6x91sVfK4WlLKGllHQEkNZYZ1bfs7IBSlmkZCzqYxHZbNV-8__i"
+        "SALT_KEY": "PCM-GLC-2018",
+        "FCM_API_KEY": "AAAA7dRXr1s:APA91bHemvTWvICzrSp32UNGu5DTny3hK1VY_VdjDASdRrfnfD1vtwYzqouj7gqCwfgurNtT0UsKCYYjKmNfs66w5MfyH2z1kwiqHoE9bNgMc7UaCtr6g1elI-nNTOK78R8_CsytIelS"
     },
     "CONST": {
         "MSG_TYPE_TEXT": 1,

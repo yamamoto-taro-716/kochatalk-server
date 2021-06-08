@@ -11,6 +11,7 @@ var messageModel = require('./models/messages');
 var contactModel = require('./models/contacts');
 var contactMessageModel = require('./models/contact_messages');
 /* END - MODEL */
+ var logger = require('./winston');
 
 var socket_chat_ns = '/chat';
 
@@ -39,7 +40,6 @@ module.exports = function (io) {
     }));
 
     chatio.on('authenticated', function (socket) {
-        
         //Get user info from JWT
         var user_info = socket.decoded_token.profile;
         socket.decoded_token.socket_id = socket.id;
@@ -81,14 +81,14 @@ module.exports = function (io) {
             }
         });
 
-        console.log('user connected (id: ' + user_info.id + ')');
+        logger.info('user connected (id: ' + user_info.id + ')');
 
         socket.on('join:room', function (data) {
             //Init room_name
             var room_id = genRoomID(user_info.id, data.friend_id);
             //Get socket already in current room
             var sockets = getSocketsInRoom(io, room_id, socket_chat_ns);
-            console.log('join:room ' + room_id + ' -- ' + user_info.id);
+            logger.info('join:room ' + room_id + ' -- ' + user_info.id);
             socket.join(room_id);
             socket.emit('response:room', {
                 status: true,
@@ -100,7 +100,7 @@ module.exports = function (io) {
         socket.on('leave:room', function (data) {
             var room_id = genRoomID(user_info.id, data.friend_id);
             socket.leave(room_id);
-            console.log('leave:room ' + room_id);
+            logger.info('leave:room ' + room_id);
             socket.emit('response:room', {
                 status: true,
                 action: 'leave:room',
@@ -125,7 +125,7 @@ module.exports = function (io) {
                     'account_id': account_id
                 }, function (err, contact) {
                     if (err) {
-                        console.log("find:contact:error");
+                        logger.info("find:contact:error");
                         return;
                     }
                     var nickname = "";
@@ -147,7 +147,7 @@ module.exports = function (io) {
                             contact.save();
                         }
 
-                        console.log("join:contact OK: " + room_id);
+                        logger.info("join:contact OK: " + room_id);
                     } else {
                         var model = {
                             account_id: account_id,
@@ -162,7 +162,7 @@ module.exports = function (io) {
                                     action: "join:contact",
                                     msg: 'Cannt create contact'
                                 });
-                                console.log("join:contact Failed" + room_id);
+                                logger.info("join:contact Failed" + room_id);
                             } else {
                                 socket.join(room_id);
                                 socket.emit('response:contact', {
@@ -170,7 +170,7 @@ module.exports = function (io) {
                                     action: "join:contact",
                                     msg: 'Success'
                                 });
-                                console.log("join:contact OK" + room_id);
+                                logger.info("join:contact OK" + room_id);
                             }
                         });
                     }
@@ -181,7 +181,7 @@ module.exports = function (io) {
         socket.on('leave:contact', function (data) {
             var room_id = genRoomID(user_info.id, data.account_id);
             socket.leave(room_id);
-            console.log('leave:contact ' + room_id);
+            logger.info('leave:contact ' + room_id);
             socket.emit('response:contact', {
                 status: true,
                 action: 'leave:contact' + room_id,
@@ -199,7 +199,7 @@ module.exports = function (io) {
                 }
             });
             if (!hasRoom) {
-                console.log("contact:error:noRoom");
+                logger.info("contact:error:noRoom");
                 return;
             }
             let account_id = (data.account_id <= 0 ? user_info.id : data.account_id);
@@ -227,7 +227,7 @@ module.exports = function (io) {
             contactMessageModel.create(messages, function (err, message) {
                 if (err) {
                     dataReturn.status = false;
-                    console.log('EMIT: send:contact:error');
+                    logger.info('EMIT: send:contact:error');
                 } else {
                     dataReturn.id = message.id;
                     if (messages.is_read == 0) {
@@ -251,10 +251,11 @@ module.exports = function (io) {
                                     revision: 0,
                                     created: dataReturn.created
                                 });
-                                console.log("send:contact:notification");
+                                logger.info("send:contact:notification");
                             } else {
                                 //TODO: Push notification
-                                console.log("send:contact:push");
+                                logger.info("============= Begin Test push notification in the socket file ================");
+                                logger.info("send:contact:push");
                                 accountModel.findOne({
                                     account_id: data.account_id
                                 }, function (err, account) {
@@ -272,6 +273,7 @@ module.exports = function (io) {
                                         }
                                     }
                                 });
+                                logger.info("============= End Test push notification in the socket_ballon file ================"); 
                             }
                         }
                     }
@@ -291,7 +293,7 @@ module.exports = function (io) {
                     }
                 });
                 chatio.to(room_id).emit('receive:contact', dataReturn);
-                console.log("send:contact:" + room_id);
+                logger.info("send:contact:" + room_id);
             });
         });
 
@@ -305,7 +307,7 @@ module.exports = function (io) {
                 }
             });
             if (!hasRoom) {
-                console.log("error:noRoom");
+                logger.info("error:noRoom");
                 return;
             }
             var messages = {
@@ -336,7 +338,7 @@ module.exports = function (io) {
             messageModel.create(messages, function (err, message) {
                 if (err) {
                     dataReturn.status = false;
-                    console.log('EMIT: send:message:error');
+                    logger.info('EMIT: send:message:error');
                 } else {
                     dataReturn.id = message.id;
                     if (message.is_read == 0) {
@@ -359,10 +361,10 @@ module.exports = function (io) {
                                 revision: user_info.revision,
                                 created: dataReturn.created
                             });
-                            console.log("send:message:notification");
+                            logger.info("send:message:notification");
                         } else {
                             //TODO: Push notification
-                            console.log("send:message:push");
+                            logger.info("send:message:push");
                             accountModel.findOne({
                                 account_id: data.friend_id
                             }, function (err, account) {
@@ -380,34 +382,8 @@ module.exports = function (io) {
             });
         });
 
-        socket.on('send:action', function (data) {
-            var room_id = genRoomID(user_info.id, data.friend_id);
-            let rooms = io.nsps["/chat"].adapter.rooms;
-            var hasRoom = false;
-            _.each(rooms, function (room, index) {
-                if (index == room_id) {
-                    hasRoom = true;
-                }
-            });
-            if (!hasRoom) {
-                console.log("error:noRoom");
-                return;
-            } 
-            var dataReturn = {
-                status: true,
-                id: data.action,
-                send_id: user_info.id,
-                receive_id: data.friend_id,
-                message: '',
-                type: 1,
-                created: momentz(new Date()).tz('UTC').format('YYYY-MM-DD HH:mm:ss')
-            };
-            chatio.to(room_id).emit('receive:message', dataReturn);
-        });
-
-
         socket.on('disconnect', function (reason) {
-            console.log(reason + ' User: ' + socket.decoded_token.sub);
+            logger.info(reason + ' User: ' + socket.decoded_token.sub);
             for (var i = 0; i < users.length; i++) {
                 if (users[i].sub == socket.decoded_token.sub) {
                     users.splice(i, 1);

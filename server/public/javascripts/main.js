@@ -1,6 +1,6 @@
 $(function () {
     var chatio = io('/chat');
-    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsInByb2ZpbGUiOnsiaWQiOjQsIm5pY2tuYW1lIjoiY2huZyIsIm5hdGlvbmFsaXR5IjoiSlAiLCJnZW5kZXIiOjEsImF2YXRhciI6IiIsInJldmlzaW9uIjoxLCJzdGF0dXMiOjEsInVzZXJfYWdlbnQiOiJpb3MiLCJwdXNoX3Rva2VuIjpudWxsfX0.2Vbx1RL4quSreznGVcDtcecpXQXg1l2Jg2iQ3JK1_NU";
+    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsInByb2ZpbGUiOnsiaWQiOjEsIm5pY2tuYW1lIjoiQ2h1bmdQaGFuMSIsIm5hdGlvbmFsaXR5IjoiVk4iLCJnZW5kZXIiOjEsImF2YXRhciI6Imh0dHA6XC9cLzE5Mi4xNjguMS4xMjNcL3dlYnJvb3RcL3VwbG9hZFwvcHJvZmlsZXNcLzFfNS5wbmciLCJyZXZpc2lvbiI6NSwic3RhdHVzIjoxLCJ1c2VyX2FnZW50IjoiYW5kcm9pZCIsInB1c2hfdG9rZW4iOiIxMjMxMjMxMjMwMTIzMTIzIn19.R6IE0asCB5EONnE2aoAw0WmS_SBtnLnUSB98yN-qSA8";
     chatio.emit('authenticate', {
         token: token
     });
