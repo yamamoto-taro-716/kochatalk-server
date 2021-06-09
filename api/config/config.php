@@ -4,8 +4,8 @@ return [
     'API' => [
         //'fcm_server_key' => 'AAAA6Q9iKbk:APA91bGNGZcQJn-MLJaHVkFni0Q0E2NMMdSJAUAmKap4cNOdNcx40Z5UXiUtGqeRYQJJ8ynhWbnfgUHuCFPvCRI9D6x91sVfK4WlLKGllHQEkNZYZ1bfs7IBSlmkZCzqYxHZbNV-8__i',
         //'fcm_server_key_android' => 'AAAA8Od2IfU:APA91bEqvi-JKugs7MKIptHWuAAbo3LdF66qoVuF9ncKXig__IKWoSQkwgLt0FRxVEAGGbUe1vhA8aX_gfQ49Clwjn6QAQXdWXaA_j8Kx0qjtZH1ic-V0Xdfv0wCNZmLHp2n3gfW7yp0',
-        'fcm_server_key' => 'AAAAWibepCY:APA91bHV73H6b3VGCKqxBYGhWLXinCVvx-aubwa6qCeoFOQSiq4WBT01JECTZjvB4pfI90g3sj6Ws48HPiw7Hd4iayHL16PNbfbNmHcZTHEI1LLNZzzc_LeduxqyO25EZJfnUFYKBwGr',
-        'fcm_server_key_android' => 'AAAAWibepCY:APA91bHV73H6b3VGCKqxBYGhWLXinCVvx-aubwa6qCeoFOQSiq4WBT01JECTZjvB4pfI90g3sj6Ws48HPiw7Hd4iayHL16PNbfbNmHcZTHEI1LLNZzzc_LeduxqyO25EZJfnUFYKBwGr',
+        'fcm_server_key' => 'AAAAw9IYfFc:APA91bGM8cEZnu4v3-9BO8IEkHLbIY4f3uC2TKTw6ZftPDgvTN9u9bGQPsTafd3xRbvg8JJHPq4VsW4F5CY597a_lgF1KLuQhRyJ979BYiGSeZ5Q5SJmLsqlgcOezuX2rL5RiMSYm0Sn',
+        'fcm_server_key_android' => 'AAAAw9IYfFc:APA91bGM8cEZnu4v3-9BO8IEkHLbIY4f3uC2TKTw6ZftPDgvTN9u9bGQPsTafd3xRbvg8JJHPq4VsW4F5CY597a_lgF1KLuQhRyJ979BYiGSeZ5Q5SJmLsqlgcOezuX2rL5RiMSYm0Sn',
         'salt_key' => 'BLC-PCM-2018',
         'jwt_key' => 'PCM-BLC-2018',
         'template_response' => [
