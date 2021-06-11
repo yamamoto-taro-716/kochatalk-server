@@ -219,8 +219,8 @@ class AccountsController extends ApiAppController
         $account->in_group = Account::STATUS_NORMAL;
         $account->status = Account::STATUS_NORMAL;
         $account->revision = 1;
-        $newSaved = $this->Accounts->save($account);
-        if ($newSaved) {
+
+        if ($this->Accounts->save($account)) {
         	//TODO: For Apple Review
 //	        $this->loadModel('AccountFriends');
 //	        $tmp_friends = $this->Accounts->find()->select(["Accounts.id"])->where(["Accounts.id !=" => $account->id])->limit(2)->order('rand()');
@@ -252,38 +252,38 @@ class AccountsController extends ApiAppController
 		        }
 	        }
             $payload = [
-                "sub" => $newSaved->id,
+                "sub" => $account->id,
                 "profile" => [
-                    "id" => $newSaved->id,
-                    "nickname" => $newSaved->nickname,
-                    "nationality" => AppUtil::handleStringNull($newSaved->nationality),
-                    "gender" => $newSaved->gender,
-                    "avatar" => AppUtil::handleStringNull($newSaved->avatar),
-                    "revision" => $newSaved->revision,
-                    "status" => $newSaved->status,
+                    "id" => $account->id,
+                    "nickname" => $account->nickname,
+                    "nationality" => AppUtil::handleStringNull($account->nationality),
+                    "gender" => $account->gender,
+                    "avatar" => AppUtil::handleStringNull($account->avatar),
+                    "revision" => $account->revision,
+                    "status" => $account->status,
                     "user_agent" => $this->clientDevice['user-agent'],
                     "push_token" => $device->push_token,
-                    "age" => AppUtil::handleNumberNull($newSaved->age, "int"),                
-                    "prefecture" => AppUtil::handleStringNull($newSaved->prefecture),
-                    "avatar_status" => AppUtil::handleNumberNull($newSaved->avatar_status, "int"),
+                    "age" => AppUtil::handleNumberNull($account->age, "int"),                
+                    "prefecture" => AppUtil::handleStringNull($account->prefecture),
+                    "avatar_status" => AppUtil::handleNumberNull($account->avatar_status, "int"),
                 ],
             ];
             $jwt_token = JWT::encode($payload, $this->_apiConfig["jwt_key"]);
 
             $this->syncAccountToMongo([
-                "id" => $newSaved->id,
-                "account_id" => $newSaved->id,
-                "nickname" => $newSaved->nickname,
-                "nationality" => AppUtil::handleStringNull($newSaved->nationality),
-                "gender" => $newSaved->gender,
-                "avatar" => AppUtil::handleStringNull($newSaved->avatar),
-                "revision" => $newSaved->revision,
-                "status" => $newSaved->status,
+                "id" => $account->id,
+                "account_id" => $account->id,
+                "nickname" => $account->nickname,
+                "nationality" => AppUtil::handleStringNull($account->nationality),
+                "gender" => $account->gender,
+                "avatar" => AppUtil::handleStringNull($account->avatar),
+                "revision" => $account->revision,
+                "status" => $account->status,
                 "user_agent" => $this->clientDevice['user-agent'],
                 "push_token" => $device->push_token,
-                "age" => AppUtil::handleNumberNull($newSaved->age, "int"),
-                "prefecture" => AppUtil::handleStringNull($newSaved->prefecture),
-                "avatar_status" => AppUtil::handleNumberNull($newSaved->avatar_status, "int"),
+                "age" => AppUtil::handleNumberNull($account->age, "int"),
+                "prefecture" => AppUtil::handleStringNull($account->prefecture),
+                "avatar_status" => AppUtil::handleNumberNull($account->avatar_status, "int"),
             ]);
 
             return $this->responseData(['status' => true, 'data' => ["Authorization" => $jwt_token]]);
