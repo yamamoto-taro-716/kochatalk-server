@@ -277,6 +277,7 @@ class AccountsController extends ApiAppController
                 "nationality" => AppUtil::handleStringNull($account->nationality),
                 "gender" => $account->gender,
                 "avatar" => AppUtil::handleStringNull($account->avatar),
+                "intro" => AppUtil::handleStringNull($account->intro),
                 "revision" => $account->revision,
                 "status" => $account->status,
                 "user_agent" => $this->clientDevice['user-agent'],
@@ -363,6 +364,7 @@ class AccountsController extends ApiAppController
                     "gender" => $dataReturn["gender"],
                     "avatar" => $dataReturn["avatar"],
                     "age" => $dataReturn["age"],
+                    "intro" => $dataReturn["intro"],
                     "prefecture" => $dataReturn["prefecture"],
                     "revision" => $dataReturn["revision"],
                     "status" => $this->authUser->status,
@@ -373,6 +375,7 @@ class AccountsController extends ApiAppController
             ];
             $jwt_token = JWT::encode($payload, $this->_apiConfig["jwt_key"]);
             $dataReturn["Authorization"] = $jwt_token;
+            $dataReturn["payload"] = $payload;
             return $this->responseData(["status" => true, "data" => $dataReturn]);
         } else {
             return $this->responseData(["error_code" => 600]);
