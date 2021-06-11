@@ -219,7 +219,7 @@ class AccountsController extends ApiAppController
         $account->in_group = Account::STATUS_NORMAL;
         $account->status = Account::STATUS_NORMAL;
         $account->revision = 1;
-        $newSaved = $this->Accounts->save($account)
+        $newSaved = $this->Accounts->save($account);
         if ($newSaved) {
         	//TODO: For Apple Review
 //	        $this->loadModel('AccountFriends');
