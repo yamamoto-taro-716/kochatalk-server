@@ -286,7 +286,7 @@ class AccountsController extends ApiAppController
                 "avatar_status" => AppUtil::handleNumberNull($account->avatar_status, "int"),
             ]);
 
-            return $this->responseData(['status' => true, 'data' => ["Authorization" => $jwt_token]]);
+            return $this->responseData(['status' => true, 'data' => ["Authorization" => $jwt_token, "payload"=>$payload]]);
         } else {
             return $this->responseData(["error_code" => 600]);
         }
