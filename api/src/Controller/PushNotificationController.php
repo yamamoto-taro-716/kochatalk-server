@@ -147,7 +147,8 @@ class PushNotificationController extends AppController
             if (!empty($arrTokenAndroid)) {
                 $resultAndroid = AppUtil::sendFCMMessage([], $dataAndroid, $arrTokenAndroid, 'android');
             }
-
+            $dataReturn['resultIos'] = $resultIos['success'];
+            $dataReturn['resultAndroid'] = $resultAndroid['success'];
             if (isset($resultIos['success']) && $resultIos['success'] > 0 ||
                 isset($resultAndroid['success']) && $resultAndroid['success'] > 0
             ) {
