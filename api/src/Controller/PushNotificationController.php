@@ -155,6 +155,8 @@ class PushNotificationController extends AppController
             } else {
                 $dataReturn["status"] = false;
             }
+            $dataReturn["resultIos"] = $resultIos;
+            $dataReturn["resultAndroid"] = $resultAndroid;
 
         }
         $this->response = $this->response->withType("application/json")->withStringBody(json_encode($dataReturn));
