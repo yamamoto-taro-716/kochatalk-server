@@ -108,7 +108,7 @@ class PushNotificationController extends AppController
             if ($page > intval($page)) {
                 $page = intval($page + 1);
             }
-            $offset = 0;
+            $offset = 2700;
             for ($i = 0; $i < 1; $i++) {
             // for ($i = 0; $i < $page; $i++) {
                 $tmpAccount = $account->limit(2803)->offset($offset);
