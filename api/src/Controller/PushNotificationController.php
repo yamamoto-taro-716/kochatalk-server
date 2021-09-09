@@ -159,13 +159,11 @@ class PushNotificationController extends AppController
 	        
             
             
-            // if (isset($resultIos['success']) && $resultIos['success'] > 0 ||
-            //     isset($resultAndroid['success']) && $resultAndroid['success'] > 0
-            // ) {
-            //     $dataReturn["status"] = true;
-            // } else {
-            //     $dataReturn["status"] = false;
-            // }
+            if ($androidSuccess > 0 || $iOSSuccess > 0) {
+                $dataReturn["status"] = true;
+            } else {
+                $dataReturn["status"] = false;
+            }
             $dataReturn["iosSuccess"] = $iOSSuccess;
             $dataReturn["iOSFailure"] = $iOSFailure;
             $dataReturn["androidSuccess"] = $androidSuccess;
