@@ -104,14 +104,14 @@ class PushNotificationController extends AppController
 
             $arrTokenAndroid = [];
             $arrTokenIos = [];
-            $page = $account->count() / 900;
+            $page = $account->count() / 1000;
             if ($page > intval($page)) {
                 $page = intval($page + 1);
             }
-            $offset = 2700;
+            $offset = 1000;
             for ($i = 0; $i < 1; $i++) {
             // for ($i = 0; $i < $page; $i++) {
-                $tmpAccount = $account->limit(2803)->offset($offset);
+                $tmpAccount = $account->limit(1000)->offset($offset);
                 $offset = $offset + 900;
                 foreach ($tmpAccount as $key => $value) {
                     if ($value->device) {
