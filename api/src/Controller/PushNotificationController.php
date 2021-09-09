@@ -111,7 +111,7 @@ class PushNotificationController extends AppController
             $offset = 0;
             for ($i = 0; $i < 1; $i++) {
             // for ($i = 0; $i < $page; $i++) {
-                $tmpAccount = $account->limit(1100)->offset($offset);
+                $tmpAccount = $account->limit(1000)->offset($offset);
                 $offset = $offset + 900;
                 foreach ($tmpAccount as $key => $value) {
                     if ($value->device) {
