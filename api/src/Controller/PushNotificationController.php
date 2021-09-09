@@ -102,29 +102,7 @@ class PushNotificationController extends AppController
             $dataReturn["number"] = $account->count();
         } else {
 
-            $arrTokenAndroid = [];
-            $arrTokenIos = [];
-            $page = $account->count() / 1000;
-            if ($page > intval($page)) {
-                $page = intval($page + 1);
-            }
-            $offset = 0;
-            for ($i = 0; $i < 1; $i++) {
-            // for ($i = 0; $i < $page; $i++) {
-                $tmpAccount = $account->limit(1000)->offset($offset);
-                $offset = $offset + 900;
-                foreach ($tmpAccount as $key => $value) {
-                    if ($value->device) {
-                        if ($value->device->user_agent == 'android') {
-                            $arrTokenAndroid[] = $value->device->push_token;
-                        } else if ($value->device->user_agent == 'ios') {
-                            $arrTokenIos[] = $value->device->push_token;
-                        }
-                    }
-
-                }
-            }
-	        $notification = [
+            $notification = [
 		        "title" =>$dataGet["title"],
 		        "body"  => $dataGet["content"]
 	        ];
@@ -140,26 +118,61 @@ class PushNotificationController extends AppController
                     "message" => $dataGet["content"]
                 ])
             ];
-            $resultIos = [];
-            if (!empty($arrTokenIos)) {
-                $resultIos = AppUtil::sendFCMMessage($notification, $data, $arrTokenIos);
-            }
-            $resultAndroid = [];
-            if (!empty($arrTokenAndroid)) {
-                $resultAndroid = AppUtil::sendFCMMessage([], $dataAndroid, $arrTokenAndroid, 'android');
-            }
             
-            if (isset($resultIos['success']) && $resultIos['success'] > 0 ||
-                isset($resultAndroid['success']) && $resultAndroid['success'] > 0
-            ) {
-                $dataReturn["status"] = true;
-            } else {
-                $dataReturn["status"] = false;
+            $page = $account->count() / 1000;
+            if ($page > intval($page)) {
+                $page = intval($page + 1);
             }
-            $dataReturn["resultIos"] = $resultIos;
-            $dataReturn["resultAndroid"] = $resultAndroid;
+            $offset = 0;
+            // for ($i = 0; $i < 1; $i++) {
+            $iOSSuccess = 0;
+            $androidSuccess = 0;
+            $iOSFailure = 0;
+            $androidFailure = 0;
+            for ($i = 0; $i < $page; $i++) {
+                $arrTokenAndroid = [];
+                $arrTokenIos = [];
+                $tmpAccount = $account->limit(1000)->offset($offset);
+                $offset = $offset + 1000;
+                foreach ($tmpAccount as $key => $value) {
+                    if ($value->device) {
+                        if ($value->device->user_agent == 'android') {
+                            $arrTokenAndroid[] = $value->device->push_token;
+                        } else if ($value->device->user_agent == 'ios') {
+                            $arrTokenIos[] = $value->device->push_token;
+                        }
+                    }
+                }
+                $resultIos = [];
+                if (!empty($arrTokenIos)) {
+                    $resultIos = AppUtil::sendFCMMessage($notification, $data, $arrTokenIos);
+                }
+                $resultAndroid = [];
+                if (!empty($arrTokenAndroid)) {
+                    $resultAndroid = AppUtil::sendFCMMessage([], $dataAndroid, $arrTokenAndroid, 'android');
+                }
+                if (isset($resultIos['success'])) $iOSSuccess += $resultIos['success'];
+                if (isset($resultIos['failure'])) $iOSFailure += $resultIos['failure'];
+                if (isset($resultAndroid['success'])) $androidSuccess += $resultAndroid['success'];
+                if (isset($resultAndroid['failure'])) $androidFailure += $resultAndroid['failure'];
+            }
+	        
+            
+            
+            // if (isset($resultIos['success']) && $resultIos['success'] > 0 ||
+            //     isset($resultAndroid['success']) && $resultAndroid['success'] > 0
+            // ) {
+            //     $dataReturn["status"] = true;
+            // } else {
+            //     $dataReturn["status"] = false;
+            // }
+            $dataReturn["iosSuccess"] = $iOSSuccess;
+            $dataReturn["iOSFailure"] = $iOSFailure;
+            $dataReturn["androidSuccess"] = $androidSuccess;
+            $dataReturn["androidFailure"] = $androidFailure;
             $dataReturn["arrTokenAndroid"] = count($arrTokenAndroid);
-
+            $dataReturn["arrTokenIos"] = count($arrTokenIos);
+            
         }
         $this->response = $this->response->withType("application/json")->withStringBody(json_encode($dataReturn));
         return $this->response;
