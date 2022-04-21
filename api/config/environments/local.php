@@ -48,7 +48,7 @@ return [
         'subDomain' => 'kochatalk',
         'fullBaseUrl' => false,
         //'socketBaseUrl' => 'http://localhost:3000',
-        'socketBaseUrl' => 'http://18.183.150.95:3002',
+        'socketBaseUrl' => 'http://54.168.213.169:3002',
         'imageBaseUrl' => 'img/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',

@@ -14,7 +14,7 @@ return [
         // 'baseUrl' => env('SCRIPT_NAME'),
         'subDomain' => 'kochatalk',
         'fullBaseUrl' => false,
-        'socketBaseUrl' => 'http://18.183.150.95:3002/chat-kochatalk',
+        'socketBaseUrl' => 'http://54.168.213.169:3002/chat-kochatalk',
         'imageBaseUrl' => 'img/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',
